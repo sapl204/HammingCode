@@ -49,7 +49,7 @@ def correctErrors(word):
     result = XorApplyAndMult(paritycheck, vectorTrans)
     resultSerialize = list(map(lambda x: str(x), result))
     if(result == [0,0,0]):
-        alert = "no hay ningún error en el código" 
+        alert = "There is no error in the given word" 
         return alert
     else:
         resultStr = "".join(resultSerialize)
@@ -57,21 +57,21 @@ def correctErrors(word):
         vectorCorrected = []
         for i in range(1, len(newVector)+1):
             if(i == bit):
-                valor = '0' if newVector[i-1]=='1' else '1'
-                vectorCorrected.append(valor)
+                value = '0' if newVector[i-1]=='1' else '1'
+                vectorCorrected.append(value)
             else:
                 vectorCorrected.append(newVector[i-1])
         vectorCorrectedStr = "".join(vectorCorrected)                 
         return vectorCorrectedStr
 
 while True:
-    option  =input("escoge una opción: \n 1) codificar en Hamming \n 2) corregir (distancia minima 3) \n 3) Salir: \n")
+    option = input("Choose an option: \n 1) Codificate in Hamming  \n 2) Correcting the code  \n 3) Exit \n : ")
     if(option == "1"):
-        word = input("introduzca la palabra -> ")
-        print("la codificación en Hamming es -> " + codification(word))
+        word = input("Input the word -> ")
+        print("The Hamming Codification is -> " + codification(word))
     elif(option == "2"):
-        word = input("introduzca la palabra a corregir -> ")
-        print("corrección -> "+ correctErrors(word))
+        word = input("Input the word to correct -> ")
+        print("Correction -> "+ correctErrors(word))
     else:
-        print("gracias por usar el programa ;)")
+        print("Thanks for use the program ;)")
         break
