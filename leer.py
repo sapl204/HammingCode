@@ -39,37 +39,39 @@ def codification(word=""):
         return string
 
 def correctErrors(word):
-    paritycheck = np.array([[1, 0 ,0 ,0 ,1 ,1 ,1], 
-                            [0, 1, 0, 1, 0, 1 ,1],
-                            [0, 0, 1, 1, 1, 0, 1]])
+    paritycheck = np.array([[0, 0 ,0 ,1 ,1 ,1 ,1], 
+                            [0, 1, 1, 0, 0, 1 ,1],
+                            [1, 0, 1, 0, 1, 0, 1]])
 
     vector = ConvertToVector(word)
     newVector = list(map(lambda x: str(x), vector))
-    print(newVector)
-    vectorStr = "".join(newVector)
-    print(vectorStr)
     vectorTrans = np.transpose(vector)
     result = XorApplyAndMult(paritycheck, vectorTrans)
-    resultSerialize = list(map(lambda x: str(x), result)) 
-    print(resultSerialize)
+    resultSerialize = list(map(lambda x: str(x), result))
     if(result == [0,0,0]):
-        print("no hay ningún error en el código")
+        alert = "no hay ningún error en el código" 
+        return alert
     else:
         resultStr = "".join(resultSerialize)
         bit = int(resultStr, 2)
-        print(bit)
         vectorCorrected = []
         for i in range(1, len(newVector)+1):
             if(i == bit):
                 valor = '0' if newVector[i-1]=='1' else '1'
                 vectorCorrected.append(valor)
-                print("sopa")
             else:
                 vectorCorrected.append(newVector[i-1])
         vectorCorrectedStr = "".join(vectorCorrected)                 
         return vectorCorrectedStr
-# codigo = input("coloque el codigo: ")
-# hola = codification(codigo)
-sopa = correctErrors("1011011")
-# print(hola)
-print(sopa)
+
+while True:
+    option  =input("escoge una opción: \n 1) codificar en Hamming \n 2) corregir (distancia minima 3) \n 3) Salir: \n")
+    if(option == "1"):
+        word = input("introduzca la palabra -> ")
+        print("la codificación en Hamming es -> " + codification(word))
+    elif(option == "2"):
+        word = input("introduzca la palabra a corregir -> ")
+        print("corrección -> "+ correctErrors(word))
+    else:
+        print("gracias por usar el programa ;)")
+        break
