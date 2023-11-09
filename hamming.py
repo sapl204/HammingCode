@@ -27,7 +27,7 @@ def XorApplyAndMult(mat1, mat2):
     return XorApply
 
 def codification(word=""):
-    generatorMatrix = np.array([[1,0,0,0,0,1,1], 
+    generatorMatrix = np.array([[1,0,0,0,0,1,1],
                                 [0,1,0,0,1,0,1],
                                 [0,0,1,0,1,1,0],
                                 [0,0,0,1,1,1,1]])
@@ -39,7 +39,7 @@ def codification(word=""):
         return string
 
 def correctErrors(word):
-    paritycheck = np.array([[0, 0 ,0 ,1 ,1 ,1 ,1], 
+    paritycheck = np.array([[0, 0 ,0 ,1 ,1 ,1 ,1],
                             [0, 1, 1, 0, 0, 1 ,1],
                             [1, 0, 1, 0, 1, 0, 1]])
 
@@ -49,7 +49,7 @@ def correctErrors(word):
     result = XorApplyAndMult(paritycheck, vectorTrans)
     resultSerialize = list(map(lambda x: str(x), result))
     if(result == [0,0,0]):
-        alert = "There is no error in the given word" 
+        alert = "There is no error in the given word"
         return alert
     else:
         resultStr = "".join(resultSerialize)
@@ -61,17 +61,23 @@ def correctErrors(word):
                 vectorCorrected.append(value)
             else:
                 vectorCorrected.append(newVector[i-1])
-        vectorCorrectedStr = "".join(vectorCorrected)                 
+        vectorCorrectedStr = "".join(vectorCorrected)
         return vectorCorrectedStr
 
 while True:
     option = input("Choose an option: \n 1) Codificate in Hamming  \n 2) Correcting the code  \n 3) Exit \n : ")
     if(option == "1"):
+      try:
         word = input("Input the word -> ")
         print("The Hamming Codification is -> " + codification(word))
+      except:
+        print("An error has ocurred")
     elif(option == "2"):
+      try:
         word = input("Input the word to correct -> ")
         print("Correction -> "+ correctErrors(word))
+      except:
+        print("An error has ocurred")
     else:
         print("Thanks for use the program ;)")
         break
